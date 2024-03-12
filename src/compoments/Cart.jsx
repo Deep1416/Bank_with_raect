@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import SliderPart from "./SliderPart";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 function Cart() {
   
 
@@ -92,7 +96,7 @@ function Cart() {
             value = {intrest}
             rate = {setIntrest}
           />
-           {/* <FormControl fullWidth>
+           <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Tenure</InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -107,7 +111,7 @@ function Cart() {
             <MenuItem value={20}>20 Year</MenuItem>
             <MenuItem value={25}>25 Year</MenuItem>
           </Select>
-        </FormControl> */}
+        </FormControl>
         </div>
         <div className="w-1/2"></div>
       </div>
