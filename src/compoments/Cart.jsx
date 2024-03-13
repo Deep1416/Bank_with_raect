@@ -4,6 +4,10 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import ChartPie from "./ChartPie";
+import Chart from "chart.js/auto";
+import { CategoryScale } from "chart.js";
+Chart.register(CategoryScale);
 function Cart() {
   
 
@@ -12,6 +16,22 @@ function Cart() {
   const [loanamount, setLoanamount] = useState(0);
   const [intrest, setIntrest] = useState(5);
   const [year, setYear] = useState(5);
+
+  const [chartData, setChartData] = useState({
+    labels: ["Principle" , "Interst"], 
+    datasets: [
+      {
+        label: "Users Gained ",
+        data:[100 ,101],
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.2)",
+          "rgba(54, 162, 235, 0.2)",
+        ],
+        borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+        borderWidth: 1
+      }
+    ]
+  });
 
   useEffect(()=>{
     setDownPayment(()=>homeValue*0.2)
@@ -113,7 +133,9 @@ function Cart() {
           </Select>
         </FormControl>
         </div>
-        <div className="w-1/2"></div>
+        <div className="w-1/2">
+          <ChartPie chartData = {chartData} />
+        </div>
       </div>
     </div>
   );
