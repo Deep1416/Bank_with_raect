@@ -8,9 +8,8 @@ import ChartPie from "./ChartPie";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 Chart.register(CategoryScale);
-function Cart() {
-  
 
+function Cart() {
   const [homeValue, setHomeValue] = useState(3000);
   const [downPayment, setDownPayment] = useState(0);
   const [loanamount, setLoanamount] = useState(0);
@@ -18,43 +17,25 @@ function Cart() {
   const [year, setYear] = useState(5);
 
   const [chartData, setChartData] = useState({
-    labels: ["Principle" , "Interst"], 
+    labels: ["Principle", "Interst"],
     datasets: [
       {
         label: "Users Gained ",
-        data:[100 ,101],
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-        ],
+        data: [100, 101],
+        backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)"],
         borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
-        borderWidth: 1
-      }
-    ]
+        borderWidth: 1,
+      },
+    ],
   });
 
   useEffect(()=>{
-    setDownPayment(()=>homeValue*0.2)
-    setLoanamount(()=>homeValue*0.8)
-    // console.log("home value compo");
-  },[])
+    setDownPayment(homeValue * 0.20);
+  },[homeValue])
 
-  function changehandlre(id ,value){
-    console.log(id ,value);
-    if(id == "down"){
-      console.log(loanamount,downPayment);
-      setDownPayment(()=>value)
-      setLoanamount(()=>homeValue-downPayment)
-      
-    }
-      if(id == "loan"){
-        setLoanamount(()=>value)
-      setDownPayment(()=>homeValue-loanamount)
-    }
-    if(id=='home'){
-      setHomeValue(()=>value)
-    }
-  }
+  useEffect(()=>{
+    setLoanamount(homeValue - downPayment);
+  },[downPayment])
 
   return (
     <div className="m-5 px-10 py-12">
@@ -68,39 +49,36 @@ function Cart() {
             minValue={1000}
             maxValue={10000}
             setp={100}
-            changehandlre = {changehandlre}
             symbol={"$ "}
             id={"home"}
-            value = {homeValue}
-            rate= {setHomeValue}
+            value={homeValue}
+            rate={setHomeValue}
           />
           <SliderPart
             name={"Down Payment"}
             minAmount={"$ 0"}
-            maxAmount={"$ 3000"}
+            maxAmount={homeValue}
             defaultValue={600}
             minValue={0}
-            maxValue={3000}
+            maxValue={homeValue}
             setp={100}
             symbol={"$ "}
             id={"down"}
-            changehandlre = {changehandlre}
-            value ={downPayment}
-            rate= {setDownPayment}
+            value={downPayment}
+            rate={setDownPayment}
           />
           <SliderPart
             name={"Loan Amount"}
             minAmount={"$ 0"}
-            maxAmount={"$ 3000"}
+            maxAmount={homeValue}
             defaultValue={2400}
             minValue={0}
-            maxValue={3000}
+            maxValue={homeValue}
             setp={100}
             symbol={"$ "}
             id={"loan"}
-            changehandlre = {changehandlre}
-            value = {loanamount}
-            rate= {setLoanamount}
+            value={loanamount}
+            rate={setLoanamount}
           />
           <SliderPart
             name={"Interest Rate"}
@@ -112,29 +90,28 @@ function Cart() {
             setp={1}
             symbol={"% "}
             id={""}
-            changehandlre = {changehandlre}
-            value = {intrest}
-            rate = {setIntrest}
+            value={intrest}
+            rate={setIntrest}
           />
-           <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Tenure</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={year}
-            label="year"
-            onChange={(event)=>setYear(event.target.value)}
-          >
-            <MenuItem value={5}>5 Year</MenuItem>
-            <MenuItem value={10}>10 Year</MenuItem>
-            <MenuItem value={15}>15 Year</MenuItem>
-            <MenuItem value={20}>20 Year</MenuItem>
-            <MenuItem value={25}>25 Year</MenuItem>
-          </Select>
-        </FormControl>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Tenure</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={year}
+              label="year"
+              onChange={(event) => setYear(event.target.value)}
+            >
+              <MenuItem value={5}>5 Year</MenuItem>
+              <MenuItem value={10}>10 Year</MenuItem>
+              <MenuItem value={15}>15 Year</MenuItem>
+              <MenuItem value={20}>20 Year</MenuItem>
+              <MenuItem value={25}>25 Year</MenuItem>
+            </Select>
+          </FormControl>
         </div>
         <div className="w-1/2">
-          <ChartPie chartData = {chartData} />
+          <ChartPie chartData={chartData} />
         </div>
       </div>
     </div>
